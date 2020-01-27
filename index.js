@@ -16,7 +16,7 @@ db.serialize(function() {
   stmt.finalize();
  
   db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
+     console.log(row.id + ": " + row.info);
   });
 });
  
@@ -26,7 +26,14 @@ db.close();
 });
 
 app.get('/test', (req, res) => {
-  res.send('Hello test')
+
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(':memory:');
+ 
+
+   db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+     console.log(row.id + ": " + row.info);
+  });
 });
 
 app.listen(3000, () => {
