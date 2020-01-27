@@ -3,33 +3,26 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-const sqlite3 = require('sqlite3').verbose();
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(':memory:');
  
-// open the database
-let db = new sqlite3.Database('./db/chinook.db', sqlite3.OPEN_READWRITE, (err) => {
-  if (err) {
-    console.error(err.message);
+db.serialize(function() {
+  db.run("CREATE TABLE lorem (info TEXT)");
+ 
+  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+  for (var i = 0; i < 10; i++) {
+      stmt.run("Ipsum " + i);
   }
-  console.log('Connected to the chinook database.');
-});
+  stmt.finalize();
  
-db.serialize(() => {
-  db.each(`create table updb(u varchar(20), p varchar(20));
-`, (err, row) => {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log(row.id + "\t" + row.name);
+  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+      console.log(row.id + ": " + row.info);
   });
-  res.send('Hello test')
 });
  
-db.close((err) => {
-  if (err) {
-    console.error(err.message);
-  }
-  console.log('Close the database connection.');
-});
+db.close();
+  res.send('Hello test')
+
 });
 
 app.get('/test', (req, res) => {
