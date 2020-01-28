@@ -11,7 +11,7 @@ db.serialize(function() {
    db.run("CREATE TABLE relationvalues (u TEXT, v1 INT, v2,INT, v3 INT)");
 
   var stmt = db.prepare("INSERT INTO updb (u,p) VALUES (?,?)");
-
+      stmt.run("u","p");
   var stmt = db.prepare("INSERT INTO relationvalues (u,v1,v2,v3) VALUES (?,?,?,?)");
       stmt.run("u",1,1,1);
   stmt.finalize();
