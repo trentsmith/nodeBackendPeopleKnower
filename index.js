@@ -12,7 +12,8 @@ db.serialize(function() {
 
   var stmt = db.prepare("INSERT INTO updb (u,p) VALUES (?,?)");
 
-      stmt.run("u","p");
+  var stmt = db.prepare("INSERT INTO relationvalues (u,v1,v2,v3) VALUES (?,?,?,?)");
+      stmt.run("u",1,1,1);
   stmt.finalize();
  
   
@@ -24,7 +25,22 @@ this.db =db;
 
 });
 
-app.get('/getAll', (req, res) => {
+app.get('/getAllrelations', (req, res) => {
+
+var sqlite3 = require('sqlite3').verbose();
+//var db = new sqlite3.Database(':memory:');
+ db.serialize(function() {
+ db.each("SELECT u,v1,v2,v3 FROM relationvalues", function(err, row) {
+     console.log(row.u + ": " + row.v1.toString());
+  });
+    res.send('Hello test')
+
+});
+
+});
+
+
+app.get('/getAllusers', (req, res) => {
 
 var sqlite3 = require('sqlite3').verbose();
 //var db = new sqlite3.Database(':memory:');
