@@ -48,6 +48,16 @@ app.get('/getuser/:u/:token', (req, res) => {
   });
 });
 
+ db.serialize(function() {
+
+    db.each("SELECT * FROM tokdb where u = "+req.params.u+" and p = "+req.params.token, function(err, row) {
+     if(req.params.u==row.u&&req.params.token==row.token)
+     {
+        console.log(row.u + ": " + row.token);
+     }
+  });
+});
+
 });
 
 app.get('/getuser/:u/:token', (req, res) => {
