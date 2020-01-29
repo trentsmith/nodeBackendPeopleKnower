@@ -59,21 +59,6 @@ app.get('/getuser/:u/:token', (req, res) => {
 });
 
 });
-
-app.get('/getuser/:u/:token', (req, res) => {
-
-    res.send('Hello test'+req.params.id);
-    var sqlite3 = require('sqlite3').verbose();
-//var db = new sqlite3.Database(':memory:');
- db.serialize(function() {
-
-    db.each("SELECT * FROM tokdb where u = "+u+" and token = "+token, function(err, row) {
-     console.log(row.u + ": " + row.token);
-  });
-});
-
-});
- 
 //db.close();
 this.db =db;
   res.send('Hello test')
