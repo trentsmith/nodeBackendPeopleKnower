@@ -1,5 +1,6 @@
 const express = require('express');
-
+//notice look into using cors and disabling it for the time being.
+//https://expressjs.com/en/resources/middleware/cors.html
 const app = express();
 db =[];
 app.get('/', (req, res) => {
