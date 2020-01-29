@@ -9,11 +9,10 @@ var db = new sqlite3.Database(':memory:');
 db.serialize(function() {
   db.run("CREATE TABLE updb (u TEXT, p TEXT)");
   db.run("CREATE TABLE tokdb (u TEXT, token TEXT)");
-  db.run("CREATE TABLE relationvalues (u TEXT, v1 INT, v2,INT, v3 INT)");
+  db.run("CREATE TABLE relationvalues (u TEXT, v1 INT, v2 INT, v3 INT)");
 
   var stmt = db.prepare("INSERT INTO updb (u,p) VALUES (?,?)");
       stmt.run("u","p");
-      stmt.run("u1","p1");
   var stmt = db.prepare("INSERT INTO relationvalues (u,v1,v2,v3) VALUES (?,?,?,?)");
       stmt.run("u",1,1,1);
   stmt.finalize();
@@ -96,14 +95,31 @@ var sqlite3 = require('sqlite3').verbose();
 
 
 
-app.get('/insert', (req, res) => {
+app.get('/insertuser/:u/:p', (req, res) => {
 
 var sqlite3 = require('sqlite3').verbose();
 //var db = new sqlite3.Database(':memory:');
 db.serialize(function() { 
   var stmt = db.prepare("INSERT INTO updb (u,p) VALUES (?,?)");
 
-      stmt.run("u1","p1");
+      stmt.run(req.params.u,req.params.p);
+  stmt.finalize();
+     res.send('Hello test')
+
+  
+});
+ 
+
+});
+
+app.get('/insertrelation/:u/:v1/:v2/:v3', (req, res) => {
+
+var sqlite3 = require('sqlite3').verbose();
+//var db = new sqlite3.Database(':memory:');
+db.serialize(function() { 
+  var stmt = db.prepare("INSERT INTO updb (u,v1,v2,v3) VALUES (?,?,?,?)");
+
+      stmt.run(req.params.u,req.params.v1,req.params.v2,req.params.v3);
   stmt.finalize();
      res.send('Hello test')
 
