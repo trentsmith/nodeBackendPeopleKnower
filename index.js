@@ -42,13 +42,6 @@ app.get('/getuser/:u/:token', (req, res) => {
 //var db = new sqlite3.Database(':memory:');
  db.serialize(function() {
 
-    db.each("SELECT * FROM tokdb where u = "+u+" and token = "+token, function(err, row) {
-     console.log(row.u + ": " + row.token);
-  });
-});
-
- db.serialize(function() {
-
     db.each("SELECT * FROM tokdb where u = "+req.params.u+" and p = "+req.params.token, function(err, row) {
      if(req.params.u==row.u&&req.params.token==row.token)
      {
@@ -93,7 +86,22 @@ var sqlite3 = require('sqlite3').verbose();
 
 });
 
+app.get('/insertuser/:u/:p', (req, res) => {
 
+var sqlite3 = require('sqlite3').verbose();
+//var db = new sqlite3.Database(':memory:');
+db.serialize(function() { 
+  var stmt = db.prepare("INSERT INTO updb (u,p) VALUES (?,?)");
+
+      stmt.run(req.params.u,req.params.p);
+  stmt.finalize();
+     res.send('Hello test')
+
+  
+});
+ 
+
+});
 
 app.get('/insertuser/:u/:p', (req, res) => {
 
