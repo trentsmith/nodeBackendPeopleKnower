@@ -10,20 +10,18 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(':memory:');
  
 db.serialize(function() {
+try
+{
+  alasql("CREATE TABLE updb (u TEXT, p TEXT)");
+  alasql("CREATE TABLE tokdb (u TEXT, token TEXT)");
+  alasql("CREATE TABLE relationvalues (u TEXT, v1 INT, v2 INT, v3 INT)");
+}
+catch(err)
+{
 
- alasql("INSERT INTO test VALUES (1,'Hello!')");
- alasql("INSERT INTO test VALUES (2,'Aloha!')");
- alasql("INSERT INTO test VALUES (3,'Bonjour!')");
-  console.log( alasql("SELECT * FROM test WHERE language > 0") );
-  db.run("CREATE TABLE updb (u TEXT, p TEXT)");
-  db.run("CREATE TABLE tokdb (u TEXT, token TEXT)");
-  db.run("CREATE TABLE relationvalues (u TEXT, v1 INT, v2 INT, v3 INT)");
-
-  var stmt = db.prepare("INSERT INTO updb (u,p) VALUES (?,?)");
-      stmt.run("u","p");
-  var stmt = db.prepare("INSERT INTO relationvalues (u,v1,v2,v3) VALUES (?,?,?,?)");
-      stmt.run("u",1,1,1);
-  stmt.finalize();
+}
+  alasql("INSERT INTO updb (u,p) VALUES (?,?)");
+  alasql("INSERT INTO relationvalues (u,v1,v2,v3) VALUES (u,1,2,3)");
  
   
 });
