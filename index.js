@@ -17,6 +17,30 @@ app.get('/', (req, res) => {
  res.send("test")
   
 });
+app.get('/getAllusers', (req, res) => {
+
+ // alasql("INSERT INTO updb VALUES (u,p)");
+ // alasql("INSERT INTO relationvalues VALUES (u,1,2,3)");
+a= alasql("select * from updb");
+ res.send(a[0].u)
+  
+});
+app.get('/user/:u/:p', (req, res) => {
+
+ // alasql("INSERT INTO updb VALUES (u,p)");
+ // alasql("INSERT INTO relationvalues VALUES (u,1,2,3)");
+ //alasql("select * ");
+ users= alasql("select * from updb");
+for(var i = 0; i<users.length();i++)
+{
+  if(users[i].u == req.params.u&&user[i].p==req.params.p)
+  {
+
+  }
+}
+ res.send("test")
+  
+});
 app.listen(3000, () => {
   console.log('server started');
 });
