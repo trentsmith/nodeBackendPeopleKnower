@@ -13,7 +13,6 @@ app.get('/', (req, res) => {
 
  // alasql("INSERT INTO updb VALUES (u,p)");
  // alasql("INSERT INTO relationvalues VALUES (u,1,2,3)");
- alasql("INSERT INTO updb VALUES ('u','p')");
  res.send("test")
   
 });
@@ -31,14 +30,26 @@ app.get('/user/:u/:p', (req, res) => {
  // alasql("INSERT INTO relationvalues VALUES (u,1,2,3)");
  //alasql("select * ");
  users= alasql("select * from updb");
-for(var i = 0; i<users.length();i++)
+for( i = 0; i<users.length;i++)
 {
-  if(users[i].u == req.params.u&&user[i].p==req.params.p)
+  if(users[i].u == req.params.u&&users[i].p==req.params.p)
   {
-
+    res.send(users[i])  
+    break;
   }
 }
- res.send("test")
+
+  
+});
+
+app.get('/insert/user/:u/:p', (req, res) => {
+
+ // alasql("INSERT INTO updb VALUES (u,p)");
+ // alasql("INSERT INTO relationvalues VALUES (u,1,2,3)");
+ //alasql("select * ");
+ alasql("INSERT INTO updb VALUES ('"+req.params.u+"','"+req.params.p+"')");
+resp.send("success")
+
   
 });
 app.listen(3000, () => {
