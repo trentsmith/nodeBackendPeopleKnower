@@ -95,7 +95,7 @@ function getRandomInt(max) {
 }
 app.get('/insert/r/:u/:n/:token/:v1/:v2/:v3', (req, res) => {
 
- alasql("INSERT INTO relationvalues VALUES ('"+req.params.u+"','"+req.params.n+"')");
+ alasql("INSERT INTO relationvalues VALUES ('"+req.params.u+"','"+req.params.n+"','"+req.params.v1+"','"+req.params.v2+"','"+req.params.v3+"')");
 res.send("success")
 
   
