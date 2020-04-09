@@ -110,7 +110,7 @@ a= alasql("select * from relationvalues");
   
 });
 app.get('/update/relations/:u/:n/:v1/:v2/:v3', (req, res) => {
- users= alasql("update relationvalues SET v1 = '"+req.params.v1+",v2="+req.params.v2+"v3="+req.params.v3+" where u = '"+requ.params.u+"' AND n = '"+req.params.n+"'");
+ users= alasql("update relationvalues SET v1 = '"+req.params.v1+"', v2= '"+req.params.v2+"', v3= '"+req.params.v3+"' where u = '"+requ.params.u+"' AND n = '"+req.params.n+"'");
  r = [];
 
  res.send(r); 
